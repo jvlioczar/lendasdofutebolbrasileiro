@@ -44,7 +44,7 @@
       c.times.forEach(function (t) {
         if (t.pendente || t.insuficiente) return;
         var hit = tec ? t.tecnico && t.tecnico[0] === nome : t.jog.some(function (j) { return j[0] === nome; });
-        if (hit) out.push('<a class="chip-link" href="./' + (c.id === "selecao" ? "#selecao" : "#t/" + c.id) + '">' + esc(c.curto || c.nome) + " · " + esc(t.nome) + "</a>");
+        if (hit) out.push('<a class="chip-link" href="times/' + c.id + '.html">' + esc(c.curto || c.nome) + " · " + esc(t.nome) + "</a>");
       });
     });
     return out;

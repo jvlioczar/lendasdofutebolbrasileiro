@@ -4,6 +4,12 @@
 
   var L = window.LFB, SEL = L.selecao, CLUBES = L.clubes || [], META = L.meta || {}, WIKI = L.wiki || {}, PESQ = L.pesquisas || {};
   var $ = function (s, r) { return (r || document).querySelector(s); };
+  // páginas em subpastas (times/) dizem onde fica a raiz do site
+  var ROOT = document.body.dataset.root || "";
+  function teamUrl(c) { return ROOT + "times/" + c.id + ".html"; }
+  var FEM = { portuguesa: 1, "ponte-preta": 1, chapecoense: 1 }; // "da Portuguesa", "do Flamengo"
+  function deNome(c) { return (FEM[c.id] ? "da " : "do ") + c.nome; }
+  function teamTitle(c) { return (c.id === "selecao" ? "Seleção Brasileira de todos os tempos" : "Seleção de todos os tempos " + deNome(c)) + " · Lendas do Futebol Brasileiro"; }
 
   var UF = {
     SP: ["São Paulo", "sudeste"], RJ: ["Rio de Janeiro", "sudeste"], MG: ["Minas Gerais", "sudeste"], ES: ["Espírito Santo", "sudeste"],
@@ -40,7 +46,6 @@
     var h = hex.replace("#", ""); var r = parseInt(h.substr(0, 2), 16), g = parseInt(h.substr(2, 2), 16), b = parseInt(h.substr(4, 2), 16);
     return (r * 299 + g * 587 + b * 114) / 1000 > 160;
   }
-  function done(c) { return c.times.filter(function (t) { return !t.pendente; }).length; }
   function names(c) {
     var out = [];
     c.times.forEach(function (t) {
@@ -92,11 +97,12 @@
   /* ---------------- tema ---------------- */
   var themeBtn = $("#theme");
   function syncTheme() {
+    if (!themeBtn) return;
     var dark = document.documentElement.dataset.theme === "dark";
     themeBtn.setAttribute("aria-pressed", dark);
     themeBtn.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
   }
-  themeBtn.addEventListener("click", function () {
+  if (themeBtn) themeBtn.addEventListener("click", function () {
     var dark = document.documentElement.dataset.theme !== "dark";
     if (dark) document.documentElement.dataset.theme = "dark"; else delete document.documentElement.dataset.theme;
     try { localStorage.setItem("lfb-theme", dark ? "dark" : "light"); } catch (e) {}
@@ -104,51 +110,51 @@
   });
   syncTheme();
 
-  if (!$("#home")) return; // páginas de texto usam só o tema
-
   /* ---------------- home ---------------- */
   var home = $("#home"), team = $("#team");
-  var allPlayers = {};
-  [SEL].concat(CLUBES).forEach(function (c) { c.times.forEach(function (t) { if (!t.pendente) t.jog.forEach(function (j) { allPlayers[j[0]] = 1; }); }); });
-  $("#stat-clubs").textContent = CLUBES.length;
-  $("#stat-states").textContent = Object.keys(CLUBES.reduce(function (a, c) { a[c.uf] = 1; return a; }, {})).length;
-  $("#stat-players").textContent = Object.keys(allPlayers).length;
-
-  $("#sel-craques").innerHTML = SEL.craques.map(function (k, i) { return "<span><b>" + (i + 1) + "º</b> " + esc(k[0]) + "</span>"; }).join("") +
-    "<span><b>C</b> " + esc(SEL.capitao) + "</span>";
-
-  // filtro de estado: do estado com mais clubes para o com menos, empates em ordem alfabética (a Seleção tem destaque próprio)
   var ufSel = $("#uf");
-  (function () {
-    UF_ORDER.map(function (u) { return [u, CLUBES.filter(function (c) { return c.uf === u; }).length]; })
-      .filter(function (x) { return x[1]; })
-      .sort(function (a, b) { return b[1] - a[1] || UF[a[0]][0].localeCompare(UF[b[0]][0], "pt"); })
-      .forEach(function (x) {
-        var op = document.createElement("option"); op.value = x[0]; op.textContent = UF[x[0]][0] + " (" + x[1] + ")"; ufSel.appendChild(op);
-      });
-  })();
-  ufSel.addEventListener("change", function () {
-    state.uf = ufSel.value; renderAll();
-  });
-  $("#sort").addEventListener("change", function (e) { state.sort = e.target.value; renderList(); });
-  $("#status").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    state.status = b.dataset.s; renderAll();
-  });
-  ["#q", "#q2"].forEach(function (id) {
-    $(id).addEventListener("input", function (e) {
-      state.q = e.target.value; $("#q").value = $("#q2").value = state.q;
-      if (id === "#q" && state.q && !location.hash.match(/^#?$/)) location.hash = "";
-      renderList();
-      if (id === "#q") $("#explorar").scrollIntoView({ block: "start" });
+  function initHome() {
+    var allPlayers = {};
+    [SEL].concat(CLUBES).forEach(function (c) { c.times.forEach(function (t) { if (!t.pendente) t.jog.forEach(function (j) { allPlayers[j[0]] = 1; }); }); });
+    $("#stat-clubs").textContent = CLUBES.length;
+    $("#stat-states").textContent = Object.keys(CLUBES.reduce(function (a, c) { a[c.uf] = 1; return a; }, {})).length;
+    $("#stat-players").textContent = Object.keys(allPlayers).length;
+
+    $("#sel-craques").innerHTML = SEL.craques.map(function (k, i) { return "<span><b>" + (i + 1) + "º</b> " + esc(k[0]) + "</span>"; }).join("") +
+      "<span><b>C</b> " + esc(SEL.capitao) + "</span>";
+
+    // filtro de estado: do estado com mais clubes para o com menos, empates em ordem alfabética (a Seleção tem destaque próprio)
+    (function () {
+      UF_ORDER.map(function (u) { return [u, CLUBES.filter(function (c) { return c.uf === u; }).length]; })
+        .filter(function (x) { return x[1]; })
+        .sort(function (a, b) { return b[1] - a[1] || UF[a[0]][0].localeCompare(UF[b[0]][0], "pt"); })
+        .forEach(function (x) {
+          var op = document.createElement("option"); op.value = x[0]; op.textContent = UF[x[0]][0] + " (" + x[1] + ")"; ufSel.appendChild(op);
+        });
+    })();
+    ufSel.addEventListener("change", function () {
+      state.uf = ufSel.value; renderAll();
     });
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "/" && !/input|select|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); $("#q").focus(); }
-  });
-  $("#reset").addEventListener("click", function () {
-    state = { q: "", uf: "", status: "", sort: state.sort }; $("#q").value = $("#q2").value = ""; ufSel.value = ""; renderAll();
-  });
+    $("#sort").addEventListener("change", function (e) { state.sort = e.target.value; renderList(); });
+    $("#status").addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      state.status = b.dataset.s; renderAll();
+    });
+    ["#q", "#q2"].forEach(function (id) {
+      $(id).addEventListener("input", function (e) {
+        state.q = e.target.value; $("#q").value = $("#q2").value = state.q;
+        if (id === "#q" && state.q && !location.hash.match(/^#?$/)) location.hash = "";
+        renderList();
+        if (id === "#q") $("#explorar").scrollIntoView({ block: "start" });
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "/" && !/input|select|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); $("#q").focus(); }
+    });
+    $("#reset").addEventListener("click", function () {
+      state = { q: "", uf: "", status: "", sort: state.sort }; $("#q").value = $("#q2").value = ""; ufSel.value = ""; renderAll();
+    });
+  }
 
   function filtered() {
     var q = norm(state.q).trim();
@@ -168,16 +174,17 @@
   }
 
   function clubCard(r) {
-    var c = r.c, n = done(c);
+    var c = r.c;
     var cr = '<p class="club-craques"><b>Craques</b>' + (c.craques && c.craques.length ?
       c.craques.map(function (k) { return esc(k[0]); }).join(" · ") : '<span class="muted">em pesquisa</span>') + "</p>";
     var match = r.hit && r.hit.length ? '<div class="match">Encontrado: <b>' + r.hit.slice(0, 3).map(esc).join(", ") + "</b></div>" : "";
-    return '<a class="club" href="#t/' + c.id + '" style="' + colorVars(c) + '">' +
+    return '<a class="club" href="' + teamUrl(c) + '" style="' + colorVars(c) + '">' +
       '<div class="club-top"><span class="crest">' + esc(initials(c.nome)) + '</span><div><h3>' + esc(c.nome) + '</h3><p>' + esc(c.cidade) + " · " + c.uf + "</p></div>" +
       (c.status === "pesquisa" ? '<span class="status pesquisa">Em pesquisa</span>' : "") + "</div>" +
       cr + match +
-      '<div class="club-foot"><span>' + n + " de 4 times montados</span>" + (torcida(c) != null ? '<span class="fans" title="Torcida (pesquisa nacional de 2025)">' + fmtPct(torcida(c)) + " da torcida</span>" : "") +
-      '<span class="progress" aria-hidden="true">' + [0, 1, 2, 3].map(function (i) { return "<i" + (i < n ? ' class="on"' : "") + "></i>"; }).join("") + "</span></div></a>";
+      // rodapé: torcida (quando há pesquisa) e a seta que indica que o card abre a página do time
+      '<div class="club-foot">' + (torcida(c) != null ? '<span class="fans" title="Torcida (pesquisa nacional de 2025)">' + fmtPct(torcida(c)) + " da torcida</span>" : "") +
+      '<span class="club-go" aria-hidden="true"><svg class="ico" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></span></div></a>';
   }
 
   function renderList() {
@@ -259,6 +266,7 @@
 
   var ICO_WEB = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
   var ICO_WIKI = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l4.5 12L12 8l4.5 10L21 6"/></svg>';
+  var ICO_SHARE = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
   var ICO_IG = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
   function links(c) {
     var m = META[c.id] || {}, out = "";
@@ -277,7 +285,7 @@
     var txt = t.length === 1 || t[0].v === t[t.length - 1].v ? num(t[0]) : "entre " + num(t[0]) + " e " + num(t[t.length - 1]);
     return '<p class="head-fans"><span class="fans-label">Torcida</span> ' + txt + " dos brasileiros</p>";
   }
-  function renderTeam(c, sel) {
+  function teamHTML(c, sel) {
     var q = norm(state.q).trim();
     if (sel == null) { sel = 0; }
     var t = c.times[sel], light = isLight(c.cores[0]);
@@ -285,8 +293,8 @@
     var status = c.status === "pesquisa" ? '<span class="status pesquisa">Em pesquisa</span>' : "";
     var html = '<header class="team-head' + (light ? " light" : "") + '" style="' + colorVars(c) + '"><span class="crest lg">' + esc(c.id === "selecao" ? "BRA" : initials(c.nome)) + "</span><div>" +
       "<h1>" + esc(c.nome) + "</h1><p>" + esc(c.cidade) + (c.uf !== "BR" ? " · " + UF[c.uf][0] : "") + (c.fundacao ? " · fundado em " + c.fundacao : "") + "</p>" +
-      '<div class="team-meta">' + status + links(c) + "</div>" + fansBox(c) + "</div>" +
-      '<a class="head-back" href="#explorar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Todos os times</a></header>';
+      '<div class="team-meta">' + status + links(c) + '<button type="button" class="head-link" data-share aria-haspopup="true">' + ICO_SHARE + "Compartilhar</button></div>" + fansBox(c) + "</div>" +
+      '<a class="head-back" href="' + ROOT + '#explorar"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Todos os times</a></header>';
 
     html += '<div class="squad-switch" role="tablist" aria-label="Escolha o time">' + c.times.map(function (x, i) {
       var sub = x.insuficiente ? "sem nomes suficientes" : x.pendente ? "pendente" : x.formacao;
@@ -332,24 +340,28 @@
     if (c.status === "pesquisa") notes.push("<b>Em pesquisa:</b> as quatro seleções deste time ainda serão montadas e checadas nas fontes.");
     if (c.sugerido) notes.push("<b>Sugerido:</b> clube acrescentado à lista original por sua relevância histórica.");
     if (c.coresPendentes) notes.push("Cores do clube a confirmar.");
-    html += '<p class="note-box">' + notes.join(" ") + ' <a href="sobre.html#metodo">Como as seleções são montadas</a>.</p>';
+    html += '<p class="note-box">' + notes.join(" ") + ' <a href="' + ROOT + 'sobre.html#metodo">Como as seleções são montadas</a>.</p>';
     if (c.fontes && c.fontes.length) {
-      html += '<section class="panel others"><h3>Fontes deste time <small><a href="fontes.html#t-' + c.id + '">Ver na página de fontes</a></small></h3><ul class="team-src">' + c.fontes.map(function (f) {
+      html += '<section class="panel others"><h3>Fontes deste time <small><a href="' + ROOT + 'fontes.html#t-' + c.id + '">Ver na página de fontes</a></small></h3><ul class="team-src">' + c.fontes.map(function (f) {
         return '<li><a href="' + esc(f[1]) + '" target="_blank" rel="noopener">' + esc(f[0]) + "</a></li>";
       }).join("") + "</ul></section>";
     }
 
-    team.innerHTML = html;
+    return html;
+  }
+  function renderTeam(c, sel) {
+    team.innerHTML = teamHTML(c, sel);
     team.style.cssText = colorVars(c);
     fitPitch();
     team.querySelectorAll("[data-i]").forEach(function (b) {
       b.addEventListener("click", function () { renderTeam(c, +b.dataset.i); });
     });
-    document.title = c.nome + " · Lendas do Futebol Brasileiro";
+    document.title = teamTitle(c);
   }
 
   // desktop: o campo inteiro (e o treinador) cabe na tela sem rolar, seja qual for a altura do cabeçalho
   function fitPitch() {
+    if (!team) return;
     var p = team.querySelector(".pitch, .pend-box");
     if (!p || team.hidden || innerWidth < 961) { team.style.removeProperty("--pitch-w"); return; }
     var top = p.getBoundingClientRect().top + scrollY, coach = team.querySelector(".coach");
@@ -359,23 +371,25 @@
   window.addEventListener("resize", fitPitch);
 
   /* ---------------- rotas ---------------- */
+  // cada time tem a sua página (times/<id>.html); os endereços antigos com # levam até ela
   function route() {
     var h = decodeURIComponent(location.hash.slice(1));
-    var c = null;
-    if (h === "selecao") c = SEL;
-    else if (h.indexOf("t/") === 0) c = CLUBES.filter(function (x) { return x.id === h.slice(2); })[0] || null;
-    if (c) {
-      home.hidden = true; team.hidden = false; renderTeam(c, 0); window.scrollTo(0, 0);
-    } else {
-      team.hidden = true; home.hidden = false; document.title = "Lendas do Futebol Brasileiro · As seleções de todos os tempos";
-      if (h === "explorar") setTimeout(function () { $("#explorar").scrollIntoView(); }, 0);
-    }
-    document.querySelectorAll('.topnav a, .mnav-list a').forEach(function (a) {
-      if (a.getAttribute("href") === "#selecao") { if (h === "selecao") a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); }
-    });
+    var id = h === "selecao" ? "selecao" : h.indexOf("t/") === 0 ? h.slice(2) : "";
+    if (id && (id === "selecao" || CLUBES.some(function (x) { return x.id === id; }))) { location.replace(ROOT + "times/" + id + ".html"); return; }
+    if (h === "explorar") setTimeout(function () { $("#explorar").scrollIntoView(); }, 0);
     var m = $(".mnav"); if (m) m.open = false;
   }
-  window.addEventListener("hashchange", route);
-  renderAll();
-  route();
+
+  // o gerador das páginas estáticas (lendas-tools) usa as mesmas funções
+  L.teamHTML = teamHTML; L.teamTitle = teamTitle; L.deNome = deNome; L.colorVars = colorVars;
+
+  if (home) {
+    initHome();
+    window.addEventListener("hashchange", route);
+    renderAll();
+    route();
+  } else if (team && document.body.dataset.team) {
+    var cur = document.body.dataset.team === "selecao" ? SEL : CLUBES.filter(function (x) { return x.id === document.body.dataset.team; })[0];
+    if (cur) renderTeam(cur, 0);
+  }
 })();

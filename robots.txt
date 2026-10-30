@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lendasdofutebolbrasileiro.biblioverse.org/sitemap.xml

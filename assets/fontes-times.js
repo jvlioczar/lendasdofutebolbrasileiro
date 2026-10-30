@@ -37,7 +37,7 @@
       html += '<section class="tsrc-group"><h3>' + esc(UF[uf]) + " <small>" + g.length + "</small></h3><div class=\"tsrc-grid\">" + g.map(function (c) {
         var f = fontesDe(c), pesquisa = (c.fontes || []).length;
         nT++; nF += f.length;
-        return '<article class="tsrc-card" id="t-' + c.id + '"><header><h4><a href="./' + (c.id === "selecao" ? "#selecao" : "#t/" + c.id) + '">' + esc(c.nome) + "</a></h4>" +
+        return '<article class="tsrc-card" id="t-' + c.id + '"><header><h4><a href="times/' + c.id + '.html">' + esc(c.nome) + "</a></h4>" +
           (c.status === "pesquisa" ? '<span class="status pesquisa">Em pesquisa</span>' : "") + "</header>" +
           (f.length ? '<ol class="tsrc-links">' + f.map(function (x) {
             return '<li><a href="' + esc(x.u) + '" target="_blank" rel="noopener"><span>' + esc(x.t) + "</span><small>" + esc(x.tipo) + " · " + esc(host(x.u)) + "</small></a></li>";
