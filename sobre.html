@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre · Lendas do Futebol Brasileiro</title>
+<meta name="description" content="O que é o projeto Lendas do Futebol Brasileiro e como são montadas as seleções de todos os tempos de cada time.">
+<meta name="author" content="Julio Cesar Prava">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>try { if (localStorage.getItem('lfb-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://biblioverse.org/superbar.js" defer></script>
+<link rel="stylesheet" href="assets/styles.css?v=2026-10-30-r32">
+</head>
+<body>
+<!-- BiblioVerse Superbar (não fixa: rola junto com a página) -->
+<nav id="bvbar" class="bvbar" data-current="lfb" data-offset="none" aria-label="BiblioVerse" style="position:relative;height:44px;z-index:9000;background:linear-gradient(90deg,#4f7cff,#7a5cff)"><a href="https://biblioverse.org" style="color:#fff;line-height:44px;padding:0 14px;font-weight:700;text-decoration:none;font-family:sans-serif">BiblioVerse</a></nav>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topbar wrap">
+  <a class="logo" href="./" aria-label="Lendas do Futebol Brasileiro — início">
+    <img src="logo.svg" alt="" width="70" height="50">
+  </a>
+  <nav class="topnav" aria-label="Seções">
+    <a href="./#selecao">Seleção Brasileira</a>
+    <a href="./#explorar">Times</a>
+    <a href="craques.html">Craques</a>
+    <a href="sobre.html" aria-current="page">Sobre</a>
+    <a href="fontes.html">Fontes</a>
+  </nav>
+  <details class="mnav">
+    <summary class="theme-btn" aria-label="Menu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+    <nav class="mnav-list" aria-label="Seções">
+      <a href="./#selecao">Seleção Brasileira</a>
+      <a href="./#explorar">Times</a>
+      <a href="craques.html">Craques</a>
+    <a href="sobre.html" aria-current="page">Sobre</a>
+      <a href="fontes.html">Fontes</a>
+    </nav>
+  </details>
+  <button class="theme-btn" id="theme" type="button" aria-label="Ativar modo escuro" aria-pressed="false">
+    <svg class="ico moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    <svg class="ico sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <nav class="lang" aria-label="Idioma">
+    <a class="on" href="sobre.html" hreflang="pt-BR" aria-current="true">PT</a>
+    <span title="Versão em inglês em breve">EN</span>
+  </nav>
+</header>
+
+<main class="wrap page" id="conteudo">
+  <header class="page-head about-head">
+    <img class="about-logo" src="logo.svg" alt="Logo do Lendas do Futebol Brasileiro: losango amarelo com círculo azul e as letras LFB, entre duas estrelas verdes" width="252" height="179">
+    <p class="eyebrow">Sobre o projeto</p>
+    <h1>Lendas do Futebol Brasileiro</h1>
+    <p class="lead">O LFB monta as seleções de todos os tempos da Seleção Brasileira e dos maiores clubes do Brasil, com os maiores jogadores e treinadores de cada história.</p>
+  </header>
+
+  <div class="prose">
+    <h2 id="introducao">Futebol, mas objetivo</h2>
+    <p>Que torcedor não gosta de um futebol objetivo? Este site é para ser objetivo e é sobre futebol, mas usando dados — e outras coisas que importam no esporte!</p>
+    <p>Gols, jogos, títulos e prêmios contam muito, mas não contam tudo. Um ídolo também se mede pelo que fez nas finais, pela camisa que honrou por anos e pelo lugar que ocupa na memória da torcida. Por isso cada escolha aqui pesa os números, as conquistas e a representação popular, sempre com as fontes à vista para quem quiser conferir.</p>
+    <p>Lembrando que a discussão nunca acaba — nem com o VAR! —, pois faz parte da boleiragem. Discorda de alguma escalação? Ótimo: é para isso que as seleções de todos os tempos existem.</p>
+
+    <h2>O que é</h2>
+    <p>Cada time ganha a sua própria seleção de todos os tempos, escalada num mapa de campo, com o time titular em posição e os demais times listados ao lado. A Seleção Brasileira foi o primeiro modelo, e todos os clubes seguem exatamente o mesmo método.</p>
+
+    <h2 id="estrutura">O que cada time tem</h2>
+    <ul class="squad-steps">
+      <li><strong>Time titular</strong>, com treinador.</li>
+      <li><strong>Time reserva</strong>, com treinador.</li>
+      <li><strong>Time suplente 1</strong>, com treinador.</li>
+      <li><strong>Time suplente 2</strong>, com treinador.</li>
+      <li><strong>Capitão de todos os tempos.</strong></li>
+      <li><strong>Os 3 maiores craques de todos os tempos.</strong></li>
+      <li><strong>Outros nomes</strong> que poderiam estar nas seleções, jogadores e treinadores.</li>
+    </ul>
+
+    <h2 id="metodo">Como as seleções são montadas</h2>
+    <p>A escolha é feita de maneira rigorosa, pesando três critérios juntos:</p>
+  </div>
+  <div class="criteria">
+    <div class="crit" style="--cc:var(--gold)"><strong>Marcas individuais</strong><p>Prêmios mundiais (Bola de Ouro, melhor do mundo da FIFA, melhor goleiro do mundo, Troféu Yashin, melhor jogador e artilheiro da Copa e do Mundial de Clubes), artilharias, recordes de gols e de jogos e presença em seleções ideais. Os prêmios aparecem com 🏆 ao lado do nome.</p></div>
+    <div class="crit" style="--cc:var(--green)"><strong>Marcas coletivas</strong><p>Títulos conquistados como protagonista: Copas do Mundo, Libertadores, Mundiais, Brasileiros, Copas do Brasil, estaduais e outras competições.</p></div>
+    <div class="crit" style="--cc:var(--primary)"><strong>Representação popular</strong><p>Idolatria da torcida, peso na memória do clube, presença em votações, listas e rankings de imprensa e de torcedores.</p></div>
+  </div>
+  <div class="prose">
+    <p>Os jogadores são escalados na posição em que mais se destacaram, e cada time precisa ser uma equipe que poderia entrar em campo: um goleiro, uma defesa, um meio e um ataque coerentes com a formação. Quando dois nomes disputam a mesma vaga, o titular é quem soma mais marcas individuais e coletivas; a representação popular desempata. O capitão de todos os tempos é escolhido entre os que lideraram o time nas suas maiores conquistas.</p>
+    <p>As informações são conferidas nas <a href="fontes.html">fontes de estatística e jornalismo</a> de maior relevância no mundo.</p>
+
+    <h3>Clubes com menos ídolos</h3>
+    <p>Nem todo clube tem craques e ídolos suficientes para preencher quatro times. Quando isso acontece, o clube fica só com os times que é possível montar com rigor, e a página avisa que não há nomes suficientes para os demais.</p>
+
+    <h2 id="craques">Craques: os melhores por posição</h2>
+    <p>A página <a href="craques.html">Craques</a> reúne os maiores jogadores e técnicos brasileiros de todos os tempos em cada posição, tenham ou não entrado nas seleções dos times. Cada nome mostra em quais seleções do LFB aparece. A página traz a seleção de todos os tempos (titular e reserva) e os rankings por posição: 6 goleiros, 6 laterais-direitos, 10 zagueiros, 6 laterais-esquerdos, 10 volantes, 6 meias, 6 pontas, 6 centroavantes e 6 técnicos. Também é possível ver os craques de cada time, na ordem das seleções do time.</p>
+
+    <h2 id="torcida">Torcida, site oficial e Instagram</h2>
+    <p>A página de cada time mostra o site oficial e o perfil no Instagram, conferidos no próprio site do clube, e o tamanho da torcida segundo as pesquisas nacionais mais recentes (Ipsos-Ipec/O Globo e AtlasIntel/ge, de 2025). A página do time mostra a faixa entre as duas pesquisas, com cada número ligado à sua fonte. Os times de cada estado aparecem por padrão em ordem de popularidade, usando o número mais conservador (o menor); também é possível ordená-los de A a Z. Clubes que não aparecem nessas pesquisas ficam sem número.</p>
+
+    <h2 id="wikipedia">Links e posições</h2>
+    <p>Os nomes levam à página do jogador ou técnico na Wikipédia em português, quando ela existe e foi conferida (o artigo precisa falar de futebol e citar o clube). Na lista de outros nomes, a posição principal aparece entre parênteses: GOL (goleiro), LD e LE (laterais), ZAG (zagueiro), VOL (volante), MEI (meia), PD e PE (pontas), ATA (atacante) e TÉC (técnico).</p>
+
+    <h2 id="situacao">Situação de cada time</h2>
+    <ul>
+      <li><strong>Em revisão:</strong> seleções já montadas, ainda em checagem nas fontes. Podem mudar.</li>
+      <li><strong>Em pesquisa:</strong> o clube já está no catálogo, mas as seleções ainda serão montadas. Quando já existem nomes confirmados, eles aparecem como "ídolos já mapeados".</li>
+    </ul>
+
+    <h2 id="times">Seleção Brasileira e filtro por estado</h2>
+    <p>A Seleção Brasileira tem destaque próprio. Os clubes aparecem todos juntos, do mais popular para o menos popular (os que não aparecem nas pesquisas de torcida vêm depois, em ordem alfabética), e podem ser filtrados pelo estado ou pela busca, que também encontra jogadores e treinadores.</p>
+    <p>A lista inicial reúne clubes de todos os 27 estados. Ceará, Fortaleza e America-RJ foram acrescentados por sua relevância histórica. Outros clubes podem entrar, como Nacional-AM, Moto Club, Ferroviário, Juventus-SP, XV de Piracicaba, Santo André, Paulista de Jundiaí, Tupi, Villa Nova-MG, Mixto e Sergipe. Sugestões são bem-vindas.</p>
+
+    <h2 id="idiomas">Idiomas</h2>
+    <p>O site está, por enquanto, só em português. A versão em inglês, em <code>/en</code>, virá depois que todas as seleções estiverem revisadas, como no projeto <a href="https://goat.biblioverse.org/" target="_blank" rel="noopener">GOATs</a>.</p>
+  </div>
+</main>
+
+<footer class="wrap footer">
+  <a class="foot-logo" href="./" aria-label="Lendas do Futebol Brasileiro — início"><img src="logo.svg" alt="" width="84" height="60"></a>
+  <p><strong>Última atualização:</strong> <time datetime="2026-10-23">23 de outubro de 2026</time> · <a href="./">Início</a> · <a href="fontes.html">Fontes</a></p>
+  <p class="credit">Projeto criado por <a href="https://linkedin.com/in/juliocesarprava" target="_blank" rel="noopener author">Julio Cesar Prava</a></p>
+</footer>
+<script src="assets/theme.js?v=2026-10-30-r32"></script>
+</body>
+</html>

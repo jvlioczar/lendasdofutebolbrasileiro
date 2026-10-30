@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lendas do Futebol Brasileiro · As seleções de todos os tempos</title>
+<meta name="description" content="As seleções de todos os tempos da Seleção Brasileira e dos maiores clubes do Brasil: titulares, reservas, suplentes, treinadores, capitães e os maiores craques de cada time.">
+<meta name="author" content="Julio Cesar Prava">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3F2F8">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>try { if (localStorage.getItem('lfb-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@700;800;900&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://biblioverse.org/superbar.js" defer></script>
+<link rel="stylesheet" href="assets/styles.css?v=2026-10-30-r32">
+</head>
+<body>
+<!-- BiblioVerse Superbar (não fixa: rola junto com a página) -->
+<nav id="bvbar" class="bvbar" data-current="lfb" data-offset="none" aria-label="BiblioVerse" style="position:relative;height:44px;z-index:9000;background:linear-gradient(90deg,#4f7cff,#7a5cff)"><a href="https://biblioverse.org" style="color:#fff;line-height:44px;padding:0 14px;font-weight:700;text-decoration:none;font-family:sans-serif">BiblioVerse</a></nav>
+<a class="skip" href="#explorar">Pular para o conteúdo</a>
+
+<header class="topbar wrap">
+  <a class="logo" href="./" aria-label="Lendas do Futebol Brasileiro — início">
+    <img src="logo.svg" alt="" width="70" height="50">
+  </a>
+  <nav class="topnav" aria-label="Seções">
+    <a href="#selecao">Seleção Brasileira</a>
+    <a href="#explorar">Times</a>
+    <a href="craques.html">Craques</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="fontes.html">Fontes</a>
+  </nav>
+  <details class="mnav">
+    <summary class="theme-btn" aria-label="Menu"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+    <nav class="mnav-list" aria-label="Seções">
+      <a href="#selecao">Seleção Brasileira</a>
+      <a href="#explorar">Times</a>
+      <a href="craques.html">Craques</a>
+    <a href="sobre.html">Sobre</a>
+      <a href="fontes.html">Fontes</a>
+    </nav>
+  </details>
+  <button class="theme-btn" id="theme" type="button" aria-label="Ativar modo escuro" aria-pressed="false">
+    <svg class="ico moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    <svg class="ico sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <nav class="lang" aria-label="Idioma">
+    <a class="on" href="./" hreflang="pt-BR" aria-current="true">PT</a>
+    <span title="Versão em inglês em breve">EN</span>
+  </nav>
+</header>
+
+<main>
+  <div id="home">
+    <section class="hero wrap">
+      <div class="hero-card">
+        <div class="hero-text">
+          <p class="eyebrow">Lendas do Futebol Brasileiro</p>
+          <h1>As <span class="hl">seleções de</span><br><span class="hl">todos os tempos</span><br>do futebol brasileiro</h1>
+          <p class="lead">Os maiores jogadores da Seleção e dos maiores clubes do Brasil, escalados em quatro times por clube — titular, reserva e dois suplentes, cada um com seu treinador — pelas marcas individuais, coletivas e pela representação popular.</p>
+          <label class="search big" for="q">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Busque um jogador, time ou estado…" aria-label="Buscar">
+            <kbd>/</kbd>
+          </label>
+          <div class="quick" id="quick"><span>Atalhos:</span><a href="#selecao">Seleção</a><a href="#t/flamengo">Flamengo</a><a href="#t/corinthians">Corinthians</a><a href="#t/palmeiras">Palmeiras</a><a href="#t/sao-paulo">São Paulo</a><a href="#t/cruzeiro">Cruzeiro</a></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="badge b1"><strong id="stat-clubs">0</strong><span>times</span></div>
+          <div class="badge b2"><strong id="stat-players">0</strong><span>lendas escaladas</span></div>
+          <div class="badge b3"><strong id="stat-states">0</strong><span>estados</span></div>
+          <svg class="hero-pitch" viewBox="0 0 68 92">
+            <rect width="68" height="92" rx="5" fill="#2F9E5B"/>
+            <g fill="#2A9254"><rect y="8" width="68" height="8"/><rect y="24" width="68" height="8"/><rect y="40" width="68" height="8"/><rect y="56" width="68" height="8"/><rect y="72" width="68" height="8"/></g>
+            <g fill="none" stroke="rgba(255,255,255,.7)" stroke-width=".7"><rect x="3" y="3" width="62" height="86" rx="1"/><line x1="3" y1="46" x2="65" y2="46"/><circle cx="34" cy="46" r="8"/><rect x="16" y="3" width="36" height="13"/><rect x="16" y="76" width="36" height="13"/></g>
+            <g stroke="#1E1B2E" stroke-width=".8">
+              <circle cx="34" cy="83" r="3.2" fill="#F5B700"/>
+              <circle cx="12" cy="66" r="3.2" fill="#FFDF00"/><circle cx="26" cy="68" r="3.2" fill="#FFDF00"/><circle cx="42" cy="68" r="3.2" fill="#FFDF00"/><circle cx="56" cy="66" r="3.2" fill="#FFDF00"/>
+              <circle cx="24" cy="50" r="3.2" fill="#FFDF00"/><circle cx="44" cy="50" r="3.2" fill="#FFDF00"/>
+              <circle cx="14" cy="32" r="3.2" fill="#FFDF00"/><circle cx="34" cy="34" r="3.2" fill="#FFDF00"/><circle cx="54" cy="32" r="3.2" fill="#FFDF00"/>
+              <circle cx="34" cy="17" r="3.2" fill="#FFDF00"/>
+            </g>
+            <circle cx="34" cy="11.4" r="1.6" fill="#fff" stroke="#1E1B2E" stroke-width=".5"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap feature" aria-label="Seleção Brasileira">
+      <a class="sel-card" href="#selecao">
+        <div>
+          <p class="eyebrow">Seleção Brasileira</p>
+          <h2>Quatro seleções, um capitão e três craques</h2>
+          <p>Titular, reserva e dois suplentes, cada um com seu treinador, o capitão de todos os tempos e os três maiores craques da história da Seleção.</p>
+          <div class="sel-craques" id="sel-craques"></div>
+        </div>
+        <span class="sel-go">Ver as seleções <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
+      </a>
+    </section>
+
+    <section class="explore wrap" id="explorar" aria-labelledby="explorar-title">
+      <h2 class="sr" id="explorar-title">Times por estado</h2>
+      <div class="toolbar">
+        <label class="select"><span class="sr">Estado</span>
+          <select id="uf"><option value="">Todos os estados</option></select>
+        </label>
+        <label class="select"><span class="sr">Ordenar times de cada estado</span>
+          <select id="sort">
+            <option value="pop">Popularidade (torcida)</option>
+            <option value="az">A–Z</option>
+          </select>
+        </label>
+        <div class="seg" id="status" role="group" aria-label="Situação">
+          <button data-s="" aria-pressed="true">Todos</button>
+          <button data-s="revisao" aria-pressed="false">Montados</button>
+          <button data-s="pesquisa" aria-pressed="false">Em pesquisa</button>
+        </div>
+        <label class="search mini" for="q2">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q2" type="search" autocomplete="off" spellcheck="false" placeholder="Busque um jogador, time ou estado…" aria-label="Buscar">
+        </label>
+      </div>
+      <div class="result-head">
+        <p id="count" aria-live="polite"></p>
+        <button class="link-btn" id="reset" type="button" hidden>Limpar filtros</button>
+      </div>
+      <div id="results"></div>
+    </section>
+  </div>
+
+  <section class="wrap team" id="team" hidden aria-live="polite"></section>
+</main>
+
+<footer class="wrap footer">
+  <a class="foot-logo" href="./" aria-label="Lendas do Futebol Brasileiro — início"><img src="logo.svg" alt="" width="84" height="60"></a>
+  <p><strong>Última atualização:</strong> <time datetime="2026-10-23">23 de outubro de 2026</time> · <a href="sobre.html">Sobre</a> · <a href="fontes.html">Fontes</a></p>
+  <p class="muted">Seleções em construção: os times marcados como "em revisão" ainda passam por checagem nas fontes, e os marcados como "em pesquisa" ainda serão montados.</p>
+  <p class="credit">Projeto criado por <a href="https://linkedin.com/in/juliocesarprava" target="_blank" rel="noopener author">Julio Cesar Prava</a></p>
+</footer>
+
+<script src="data/selecao.js?v=2026-10-30-r32"></script>
+<script src="data/grandes.js?v=2026-10-30-r32"></script>
+<script src="data/regionais.js?v=2026-10-30-r32"></script>
+<script src="data/clubes.js?v=2026-10-30-r32"></script>
+<script src="data/meta.js?v=2026-10-30-r32"></script>
+<script src="data/wiki.js?v=2026-10-30-r32"></script>
+<script src="data/premios.js?v=2026-10-30-r32"></script>
+<script src="data/notas.js?v=2026-10-30-r32"></script>
+<script src="assets/app.js?v=2026-10-30-r32"></script>
+</body>
+</html>
